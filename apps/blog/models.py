@@ -1,7 +1,9 @@
 from django.db import models 
 from django.utils import timezone
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 import uuid
+
 
 # Create your models here.
 def blog_thumbnail_directory_path(instance, filename):  
@@ -17,8 +19,8 @@ class Category(models.Model):
 
     name = models.CharField(max_length=255)
     title = models.CharField(max_length=255, blank=True, null=True)
-    description = models.TextField()
-    thumbnail = models.ImageField(upload_to=category_thumbnail_directory)
+    description = models.TextField(null=True, blank=True)
+    thumbnail = models.ImageField(upload_to=category_thumbnail_directory, null=True, blank=True)
     slug = models.CharField(max_length=128)
 
     def __str__(self):
@@ -39,7 +41,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=256)
-    content = models.TextField()
+    content = RichTextField()
     thumbnail = models.ImageField(upload_to='blog_posts/')
 
     keywords = models.CharField(max_length=128)

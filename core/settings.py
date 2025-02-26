@@ -30,7 +30,9 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://operations-realistic-memo-engineers.trycloudflare.com',
+]
 
 # Application definition
 
@@ -50,9 +52,19 @@ PROJECT_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'channels',
+    'ckeditor',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
+
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": "full",
+        "autoParagraph": False
+    }
+}
+
+CKEDITOR_UPLOAD_PATH = "media/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
